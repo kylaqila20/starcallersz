@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StarCallers ✦ Magic Shop</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Yusei+Magic&family=Nunito:wght@400;600;800&display=swap">
+    <link rel="stylesheet" href="magic.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</head>
+<body>
+
+    <div id="toast-container" class="toast-container"></div>
+
+    <div class="top-bar">
+        <!-- Tambahan Tombol Hamburger di pojok kiri -->
+        <div class="hamburger-menu" onclick="toggleSidebar()">
+            <i class="fas fa-bars"></i>
+        </div>
+
+        ✦ your sweet side is calling and the StarCallers are answering ✦
+        <div class="cart-trigger" onclick="openTab('order-page')">
+            <span class="cart-label">Bag</span>
+            <span class="cart-count" id="bag-count">0</span>
+            <i class="fas fa-shopping-bag"></i>
+        </div>
+    </div>
+    
+    <!-- Overlay untuk menutup sidebar saat diklik di luar area -->
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+    <div class="main-container">
+        <!-- Sidebar ID 'mainSidebar' -->
+        <aside class="sidebar" id="mainSidebar">
+            <div class="nav-menu">
+                <button onclick="openTab('home-page'); toggleSidebar()" class="nav-item active" id="btn-home-page">home</button>
+                <button onclick="openTab('product-page'); toggleSidebar()" class="nav-item" id="btn-product-page">product</button>
+                <button onclick="openTab('order-page'); toggleSidebar()" class="nav-item" id="btn-order-page">order</button>
+                <button onclick="openTab('about-page'); toggleSidebar()" class="nav-item" id="btn-about-page">about us</button>
+                <a href="https://wa.me/6281374016876" target="_blank" class="nav-item">contact</a>
+            </div>
+            <div class="sidebar-find-us">
+                <p class="find-us-title">find us at ✦</p>
+                <div class="sidebar-soc-icons">
+                    <a href="https://www.instagram.com/kyl.aaq" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" target="_blank" title="TikTok"><i class="fab fa-tiktok"></i></a>
+                    <a href="#" target="_blank" title="Twitter"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+        </aside>
+
+        <!-- PEMBUNGKUS KONTEN: Agar halaman bergeser saat sidebar aktif -->
+        <div class="content-wrapper" id="contentWrapper">
+            <main class="content-area">
+                <section id="home-page" class="page-section active bg-blue-grid">
+                    <div class="logo-area"><img src="StarCallers02.png" alt="StarCallers" class="logo-img"></div>
+                </section>
+
+                <section id="product-page" class="page-section bg-pink-grid">
+                    <div class="grid-wrapper">
+                        <center>
+                            <div class="product-header">✦ Our Magic Gallery ✦</div>
+                            <div class="category-nav">
+                                <button class="cat-btn active" onclick="filterCategory('all', this)">all</button>
+                                <button class="cat-btn" onclick="filterCategory('layout', this)">layout</button>
+                                <button class="cat-btn" onclick="filterCategory('keychain', this)">keychain</button>
+                                <button class="cat-btn" onclick="filterCategory('stickers', this)">stickers</button>
+                                <button class="cat-btn" onclick="filterCategory('pins', this)">pins</button>
+                                <button class="cat-btn" onclick="filterCategory('bundles', this)">bundles</button>
+                            </div>
+                        </center>
+                        <div class="product-glass-wrapper">
+                            <div id="product-grid-main" class="product-grid-main"></div>
+                        </div>
+                    </div>
+                    <footer class="footer-section"><p class="footer-credit">✦ © 2026 StarCallers Magic Shop ✦</p></footer>
+                </section>
+
+                <section id="order-page" class="page-section bg-blue-grid">
+                    <div class="order-center-wrap">
+                        <div id="empty-state" class="empty-msg">oh no, your magic bag is empty ૮(◞ ‸ ◟ )ა</div>
+
+                        <div id="order-form-container" class="form-card" style="display: none;">
+                            <h2 class="form-title">ORDER ✦</h2>
+                            <div class="form-row">
+                                <label for="custName">1. name</label>
+                                <input type="text" id="custName" placeholder="type your name..." required>
+                            </div>
+                            <div class="form-row">
+                                <label>2. product ^ (from cart)</label>
+                                <div id="cart-display-list" style="width:100%;"></div>
+                            </div>
+                            <div class="form-row">
+                                <label for="custPhone">3. phone</label>
+                                <input type="tel" id="custPhone" placeholder="08xxxx..." required>
+                            </div>
+                            <div class="form-row">
+                                <label for="custAddr">4. address</label>
+                                <input type="text" id="custAddr" placeholder="shipping address..." required>
+                            </div>
+                            <div class="form-row">
+                                <label for="payMethod">5. payment method ^</label>
+                                <select id="payMethod">
+                                    <option value="dana">dana</option>
+                                    <option value="qris">qris</option>
+                                    <option value="gopay">gopay</option>
+                                    <option value="shopeepay">shopee pay</option>
+                                    <option value="mandiri">mandiri</option>
+                                </select>
+                            </div>
+                            <div class="form-row">
+                                <label for="deliveryMethod">6. delivery</label>
+                                <select id="deliveryMethod">
+                                    <option value="10000">JNT (10k)</option>
+                                    <option value="12000">JNE (12k)</option>
+                                    <option value="8000">SPX (8k)</option>
+                                </select>
+                            </div>
+                            
+                            <div class="btn-group">
+                                <button type="button" onclick="generateReceipt()" class="btn-done">next ✦</button>
+                                <button type="button" onclick="clearCart()" class="btn-cancel">cancel</button>
+                            </div>
+                        </div>
+
+                        <div id="receipt-area" style="display:none;">
+                            <div class="receipt-container" id="printable-receipt">
+                                <div class="receipt-header">
+                                    <h3 style="font-weight:900;">STARCALLERS ✦</h3>
+                                    <p style="font-size:10px;">Magic Receipt</p>
+                                </div>
+                                <div id="receipt-details"></div>
+                                <div id="payment-instruction" class="pay-instruction"></div>
+                            </div>
+                            <center>
+                                <button class="btn-done" style="width:100%; max-width:400px; margin-top:20px;" onclick="downloadReceipt()">
+                                    Confirm & Download Receipt ✦
+                                </button>
+                            </center>
+                        </div>
+                    </div>
+                    <footer class="footer-section"><p class="footer-credit">✦ © 2026 StarCallers Magic Shop ✦</p></footer>
+                </section>
+
+                <section id="about-page" class="page-section bg-pink-grid">
+                    <div class="about-wrapper" style="padding: 60px 20px;">
+                        <div class="about-card" style="background: white; border: 3px dashed #9cd4ff; border-radius: 40px; padding: 40px; text-align: center; max-width: 800px; margin: 0 auto;">
+                            <h2 class="about-title" style="margin-bottom: 30px; font-weight: 900; color: #7b5d50; font-size: 32px;">✦ About StarCallers ✦</h2>
+                            <p style="line-height: 1.6; margin-bottom: 25px; font-size: 16px;">
+                                Welcome to the world of <span style="color: #ff9cd4; font-weight: 700;">StarCallers</span>, where your sweet side is always the priority. We are a creative studio dedicated to bringing your favorite aesthetics to life through high-quality, charming collectibles.
+                            </p>
+                            <p style="line-height: 1.6; margin-bottom: 25px; font-size: 16px;">
+                                From glitter-finished keychains to dreamlike stickers and pins, setiap piece dibuat dengan <span style="color: #ff9cd4; font-weight: 700;">love and magic</span>.
+                            </p>
+                            <p style="font-style: italic; font-weight: 700; color: #7b5d50; font-size: 16px; margin-top: 30px;">
+                                "Whenever your heart calls for something sweet, we'll be there to answer."
+                            </p>
+                        </div>
+                    </div>
+                    <footer class="footer-section"><p class="footer-credit">✦ © 2026 StarCallers Magic Shop ✦</p></footer>
+                </section>
+            </main>
+        </div> <!-- End of content-wrapper -->
+    </div>
+
+    <script src="magic_script.js"></script>
+    <script>
+        // Fungsi untuk mengontrol Sidebar dan Pergeseran Konten
+        function toggleSidebar() {
+            const sidebar = document.getElementById('mainSidebar');
+            const wrapper = document.getElementById('contentWrapper');
+            const overlay = document.getElementById('sidebarOverlay');
+            
+            sidebar.classList.toggle('active');
+            overlay.classList.toggle('active');
+        }
+    </script>
+</body>
+</html>
